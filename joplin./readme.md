@@ -1,4 +1,4 @@
-#Joplin css config files
+# Joplin css config files
 Place in ~./config/joplin-desktop/
 
 userstyle.css controls markdown rednering.

@@ -14,10 +14,9 @@ echo "==========================================================================
 echo "=============================Configure Repositories============================"
 echo "==============================================================================="
 
-echo "deb [arch=amd64] https://download.virtualbox.org/virtualbox/debian $(lsb_release -cs) contrib" | sudo tee /etc/apt/sources.list.d/virtualbox.list
+echo "deb [arch=amd64] https://download.virtualbox.org/virtualbox/debian $(lsb_release -cs) contrib" >> /etc/apt/sources.list.d/virtualbox.list
 wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -
 wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | sudo apt-key add -
-
 
 ## update and upgrade system 
 
@@ -173,7 +172,7 @@ wget https://raw.githubusercontent.com/jmrweb/files/main/joplin/userchrome.css -
 
 # setup CPU Power Manager
 
-# setup pycharm				https://www.jetbrains.com/pycharm/
+# setup pycharm					https://www.jetbrains.com/pycharm/
 # 	confirm latest download file then run:
 # 	wget https://download.jetbrains.com/python/pycharm-community-2022.1.1.tar.gz
 # 	sudo tar xzf pycharm-*.tar.gz -C /opt/
@@ -193,6 +192,5 @@ wget https://raw.githubusercontent.com/jmrweb/files/main/joplin/userchrome.css -
 # setup shared folders between vm and baremetal
 
 # sync bookmarks
-
 
 

@@ -6,7 +6,7 @@
 # Execute from user home directory
 #######################################
 
-user = pwd
+user=$(pwd)
 
 ## configure repositories and keys
 

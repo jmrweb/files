@@ -1,0 +1,34 @@
+---
+  - name: regolith setup playbook
+    hosts: localhost
+    connection: local
+    become: true
+
+    vars_prompt:
+    - name: "cheat_ver"
+      prompt: "Which version do you want to install?"
+      default: "4.2.5"
+      private: no
+   
+    vars:
+      user: "{{ lookup('ansible.builtin.env','USER') }}"
+      home: "{{ lookup('ansible.builtin.env','HOME') }}"
+
+    roles:
+      - add_repos
+      #- update
+        #- install_packages
+        #- install_cheat
+        #- install_discord
+        #- install_joplin
+        #- install_configs
+
+    pre_tasks:
+
+    
+    post_tasks:
+    - name: Update all packages to their latest version
+      ansible.builtin.apt:
+        name: "*"
+        state: latest
+

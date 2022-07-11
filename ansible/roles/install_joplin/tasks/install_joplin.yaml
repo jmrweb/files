@@ -1,0 +1,10 @@
+---
+- name: Download Joplin install script
+  ansible.builtin.get_url:
+    url: https://raw.githubusercontent.com/laurent22/joplin/dev/Joplin_install_and_update.sh
+    dest: /tmp/Joplin_install_and_update.sh
+
+- name: Run Joplin install script
+  ansible.builtin.script: /tmp/Joplin_install_and_update.sh
+  become: yes
+  become_user: "{{ user }}"

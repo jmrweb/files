@@ -77,10 +77,14 @@
   ansible.builtin.get_url:
     url: https://raw.githubusercontent.com/jmrweb/files/main/joplin/userstyle.css
     dest: '{{ home }}/.config/joplin-desktop/'
+    owner: '{{ user }}'
+    group: '{{ user }}'
     mode: '0644'
-
+    
 - name: Download Joplin userchrome css config
   ansible.builtin.get_url:
     url: https://raw.githubusercontent.com/jmrweb/files/main/joplin/userchrome.css
     dest: '{{ home }}/.config/joplin-desktop/'
+    owner: '{{ user }}'
+    group: '{{ user }}'
     mode: '0644'

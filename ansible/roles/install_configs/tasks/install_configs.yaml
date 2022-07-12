@@ -13,12 +13,16 @@
   ansible.builtin.get_url:
     url: https://raw.githubusercontent.com/jmrweb/files/main/configs/.bashrc
     dest: '{{ home }}'
+    owner: '{{ user }}'
+    group: '{{ user }}'
     mode: '0644'
 
 - name: Download .welcome
   ansible.builtin.get_url:
     url: https://raw.githubusercontent.com/jmrweb/files/main/configs/.welcome
     dest: '{{ home }}'
+    owner: '{{ user }}'
+    group: '{{ user }}'
     mode: '0644'
 
 - name: Check if .vimrc exists
@@ -35,6 +39,8 @@
   ansible.builtin.get_url:
     url: https://xn0.org/.vimrc
     dest: '{{ home }}'
+    owner: '{{ user }}'
+    group: '{{ user }}'
     mode: '0644'
 
 - name: Check if .tmux.conf exists
@@ -51,6 +57,8 @@
   ansible.builtin.get_url:
     url: https://xn0.org/.tmux.conf
     dest: '{{ home }}'
+    owner: '{{ user }}'
+    group: '{{ user }}'
     mode: '0644'
 
 - name: Create vim colors directoy
@@ -65,6 +73,8 @@
   ansible.builtin.get_url:
     url: http://xn0.org/mmh.vim
     dest: '{{ home }}/.vim/colors'
+    owner: '{{ user }}'
+    group: '{{ user }}'
     mode: '0644'
 
 - name: Create ~/.config/joplin-desktop/ if it does not exist

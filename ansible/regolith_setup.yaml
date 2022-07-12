@@ -16,12 +16,12 @@
 
     roles:
       - add_repos
-      #- update
-        #- install_packages
-        #- install_cheat
-        #- install_discord
-        #- install_joplin
-        #- install_configs
+      - update
+      - install_packages
+      - install_cheat
+      - install_discord
+      - install_joplin
+      - install_configs
 
     pre_tasks:
 

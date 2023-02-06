@@ -20,6 +20,6 @@
       #    - terminator				            # multiple GNOME terminals in one window
     - tlp					                        # Save battery power on laptops
     - tmux                                # Terminal Multiplexor
-    - tree      				                  # tree - displays an indented directory tree, in color
+    - tree                                # tree - displays an indented directory tree, in color
     - virtualbox				                  # virtualbox - x86 virtualization solution - base binaries
     - wireguard 				                  # wireguard - fast, modern, secure kernel VPN tunnel (metapackage)

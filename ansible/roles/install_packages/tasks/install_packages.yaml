@@ -2,24 +2,24 @@
 - name: Install a list of packages
   ansible.builtin.apt:
     pkg:
-    - ansible			        	              # ansible - Configuration management, deployment, and task execution system
-    - btop 			        	                # Modern and colorful command line resource monitor that shows usage and stats
-    - curl			        	                # command line tool for transferring data with URL syntax
+    - ansible                             # ansible - Configuration management, deployment, and task execution system
+    - btop                                # Modern and colorful command line resource monitor that shows usage and stats
+    - curl                                # command line tool for transferring data with URL syntax
     - flameshot                           # Powerful yet simple-to-use screenshot software
     - fuse                                #
-    - gimp		        		                # GNU Image Manipulation Program
-    - git					                        # git - fast, scalable, distributed revision control system
-    - i3xrocks-battery  			            # battery monitor for i3bar
-    - i3xrocks-focused-window-name      	# show focused window name in i3bar
-    - i3xrocks-rofication			            # system notications monitor for i3bar
-    - libreoffice				                  # libreoffice - office productivity suite
-    - locate    				                  # locate - maintain and query an index of a directory tree
-    - neofetch  				                  # Shows Linux System Information with Distribution Logo
-    - python3   				                  # interactive high-level object-oriented language (default python3 version)
-    - python3-pip				                  # Python package installer
-      #    - terminator				            # multiple GNOME terminals in one window
-    - tlp					                        # Save battery power on laptops
+    - gimp                                # GNU Image Manipulation Program
+    - git                                 # git - fast, scalable, distributed revision control system
+    - i3xrocks-battery                    # battery monitor for i3bar
+    - i3xrocks-focused-window-name        # show focused window name in i3bar
+    - i3xrocks-rofication                 # system notications monitor for i3bar
+    - libreoffice                         # libreoffice - office productivity suite
+    - locate                              # locate - maintain and query an index of a directory tree
+    - neofetch                            # Shows Linux System Information with Distribution Logo
+    - python3                             # interactive high-level object-oriented language (default python3 version)
+    - python3-pip                         # Python package installer
+      #    - terminator                   # multiple GNOME terminals in one window
+    - tlp                                 # Save battery power on laptops
     - tmux                                # Terminal Multiplexor
     - tree                                # tree - displays an indented directory tree, in color
-    - virtualbox				                  # virtualbox - x86 virtualization solution - base binaries
-    - wireguard 				                  # wireguard - fast, modern, secure kernel VPN tunnel (metapackage)
+    - virtualbox                          # virtualbox - x86 virtualization solution - base binaries
+    - wireguard                           # wireguard - fast, modern, secure kernel VPN tunnel (metapackage)

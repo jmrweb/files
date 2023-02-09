@@ -21,7 +21,7 @@
     roles:
       - add_repos
       - update
-      - install_regolith_debian_packages
+      - install_packages_regolith_debian
       - install_cheat
       - install_discord
       - install_joplin

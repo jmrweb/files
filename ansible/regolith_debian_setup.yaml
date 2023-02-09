@@ -10,7 +10,7 @@
       default: "4.4.0"
       private: no
     - name: "virtualbox_ver"
-      prompt: "Which version of cheat do you want to install?"
+      prompt: "Which version of virtualbox do you want to install?"
       default: "7.0"
       private: no
    

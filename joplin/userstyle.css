@@ -40,7 +40,7 @@ code, .inline-code {
 }
 /*---------------------------------------------------------------------------*/
 
-/*------ Prettier inline code -----------------------------------------------*/
+/*------ Inline code formatting-----------------------------------------------*/
 .inline-code {
 	border: 1px solid rgb(70, 70, 70);
 /*
@@ -52,38 +52,17 @@ code, .inline-code {
 }
 /*---------------------------------------------------------------------------*/
 
-/*------ Colors for different mark tags -------------------------------------*/
-/* ==mark== */
-mark {
-	background-color: var(--mark-bgcolor);
-	padding:          1px 2px;
-}
-/* occurrences of search term */
-mark[data-markjs] {
-	background-color: var(--search-result-bgcolor);
-	padding:          0;
-}
-/* current search term (local search) */
-mark[data-markjs].mark-selected {
-	background-color: var(--current-search-result-bgcolor);
-}
-/*---------------------------------------------------------------------------*/
-
-/*------ align checkbox to the first line (baseline) ------------------------*/
-li.md-checkbox .checkbox-wrapper {
-	align-items: baseline;
-}
-/*---------------------------------------------------------------------------*/
-
-/*------ Set border and padding for code/preformatted text -*/
+/*------Code/preformatted text formatting------------------------------------*/
 pre, pre.hljs {
 	background: var(--code-bgcolor);
 	display: inline-block;
 	border: 1px solid rgb(70, 70, 70);
 	border-radius: .25em;
+	margin-top: 1.2em;
+	margin-bottom: 0em;
 /*
 	padding-bottom:   .1em;
-	padding-top:      .2em;
+	padding-top:      .2em;	
 */
 	padding: 0em;
 	padding-left:     .2em;
@@ -92,14 +71,36 @@ pre, pre.hljs {
 }
 /*---------------------------------------------------------------------------*/
 
-/*------ Headings: change background and padding ----------------------------*/
+/*------ Blockquote formatting ----------------------------------------------*/
+blockquote {
+	border: none;
+}
+/*---------------------------------------------------------------------------*/
+
+/*------ li formatting ------------------------------------------------------*/
+li p {
+	margin-top: 1.5em;
+	margin-bottom: 0em;
+}
+/*---------------------------------------------------------------------------*/
+
+/*-------Line formatting ----------------------------------------------------*/
+li.maps-to-line, ul, p {
+	margin-top: 0em;
+	margin-bottom: 0em;
+}
+/*---------------------------------------------------------------------------*/
+
+/*------ Heading fomratting -------------------------------------------------*/
 h1, h2, h3, h4, h5, h6 {
 	background-color: var(--heading-bgcolor);
 	background: none;
-	padding-bottom:   .1em;
-	padding-top:      .2em;
+	padding-bottom:   0em;
+	padding-top:      0em;
 	padding-left:     0em;
 	border-bottom:    unset;
+	margin-top: 1.5em !important;
+	margin-bottom: 0em !important;
 }
 /*---------------------------------------------------------------------------*/
 
@@ -124,6 +125,7 @@ h2:before {
 	content: counter(h2counter) ".\0000a0\0000a0";
 }
 
+/*
 h3:before {
 	counter-increment: h3counter;
 	content: counter(h2counter) "." counter(h3counter) ".\0000a0\0000a0";
@@ -143,6 +145,7 @@ h6:before {
 	counter-increment: h6counter;
 	content: counter(h2counter) "." counter(h3counter) "." counter(h4counter) "." counter(h5counter) "." counter(h6counter) ".\0000a0\0000a0";
 }
+*/
 /*---------------------------------------------------------------------------*/
 
 /*------ TOC: Use nested counters for list items ----------------------------*/
@@ -154,6 +157,29 @@ h6:before {
 }
 .table-of-contents li:before {
 	content: counters(list-item,'.') '.\0000a0';
+}
+/*---------------------------------------------------------------------------*/
+
+/*------ Colors for different mark tags -------------------------------------*/
+/* ==mark== */
+mark {
+	background-color: var(--mark-bgcolor);
+	padding:          1px 2px;
+}
+/* occurrences of search term */
+mark[data-markjs] {
+	background-color: var(--search-result-bgcolor);
+	padding:          0;
+}
+/* current search term (local search) */
+mark[data-markjs].mark-selected {
+	background-color: var(--current-search-result-bgcolor);
+}
+/*---------------------------------------------------------------------------*/
+
+/*------ align checkbox to the first line (baseline) ------------------------*/
+li.md-checkbox .checkbox-wrapper {
+	align-items: baseline;
 }
 /*---------------------------------------------------------------------------*/
 

@@ -25,62 +25,64 @@
     group: '{{ user }}'
     mode: '0644'
 
-- name: Check if .vimrc exists
-  ansible.builtin.stat:
-    path: '{{ home }}/.vimrc'
-  register: vimrc_path
+#- name: Check if .vimrc exists
+#  ansible.builtin.stat:
+#    path: '{{ home }}/.vimrc'
+#  register: vimrc_path
 
-- name: Backup .vimrc
-  ansible.builtin.shell:   
-    cmd: mv '{{ home }}/.vimrc' '{{ home }}/.vimrc_old'
-  when: vimrc_path.stat.exists == True 
+#- name: Backup .vimrc
+#  ansible.builtin.shell:   
+#    cmd: mv '{{ home }}/.vimrc' '{{ home }}/.vimrc_old'
+#  when: vimrc_path.stat.exists == True 
 
-- name: Download Matthew Hedley .vimrc
-  ansible.builtin.get_url:
-    url: https://xn0.org/.vimrc
-    dest: '{{ home }}'
-    owner: '{{ user }}'
-    group: '{{ user }}'
-    mode: '0644'
+#- name: Download Matthew Hedley .vimrc
+#  ansible.builtin.get_url:
+#    url: https://xn0.org/.vimrc
+#    dest: '{{ home }}'
+#    owner: '{{ user }}'
+#    group: '{{ user }}'
+#    mode: '0644'
 
-- name: Check if .tmux.conf exists
-  ansible.builtin.stat:
-    path: '{{ home }}/.tmux.conf'
-  register: tmuxconf_path
+#- name: Check if .tmux.conf exists
+#  ansible.builtin.stat:
+#    path: '{{ home }}/.tmux.conf'
+#  register: tmuxconf_path
 
-- name: Backup .tmux.conf
-  ansible.builtin.shell:   
-    cmd: mv '{{ home }}/.tmux.conf' '{{ home }}/.tmux.conf_old'
-  when: tmuxconf_path.stat.exists == True 
+#- name: Backup .tmux.conf
+#  ansible.builtin.shell:   
+#    cmd: mv '{{ home }}/.tmux.conf' '{{ home }}/.tmux.conf_old'
+#  when: tmuxconf_path.stat.exists == True 
 
-- name: Download Matthew Hedley .tmux.conf
-  ansible.builtin.get_url:
-    url: https://xn0.org/.tmux.conf
-    dest: '{{ home }}'
-    owner: '{{ user }}'
-    group: '{{ user }}'
-    mode: '0644'
+#- name: Download Matthew Hedley .tmux.conf
+#  ansible.builtin.get_url:
+#    url: https://xn0.org/.tmux.conf
+#    dest: '{{ home }}'
+#    owner: '{{ user }}'
+#    group: '{{ user }}'
+#    mode: '0644'
 
-- name: Create vim colors directory
-  ansible.builtin.file:
-    path: '{{ home }}/.vim/colors'
-    state: directory
-    mode: '0755'
-    owner: '{{ user }}'
-    group: '{{ user }}'
+#- name: Create vim colors directory
+#  ansible.builtin.file:
+#    path: '{{ home }}/.vim/colors'
+#    state: directory
+#    mode: '0755'
+#    owner: '{{ user }}'
+#    group: '{{ user }}'
 
-- name: Download Matthew Hedley vim color file
-  ansible.builtin.get_url:
-    url: http://xn0.org/mmh.vim
-    dest: '{{ home }}/.vim/colors'
-    owner: '{{ user }}'
-    group: '{{ user }}'
-    mode: '0644'
+#- name: Download Matthew Hedley vim color file
+#  ansible.builtin.get_url:
+#    url: http://xn0.org/mmh.vim
+#    dest: '{{ home }}/.vim/colors'
+#    owner: '{{ user }}'
+#    group: '{{ user }}'
+#    mode: '0644'
 
 - name: Create ~/.config/joplin-desktop/ if it does not exist
   ansible.builtin.file:
     path: "{{ home }}/.config/joplin-desktop"
     state: directory
+    owner: '{{ user }}'
+    group: '{{ user }}'
     mode: '0755'
     
 - name: Download Joplin userstyle css config

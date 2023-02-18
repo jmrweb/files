@@ -2,7 +2,6 @@
 - name: Install a list of packages
   ansible.builtin.apt:
     pkg:
-    - ansible                             # ansible - Configuration management, deployment, and task execution system
     - btop                                # Modern and colorful command line resource monitor that shows usage and stats
     - curl                                # command line tool for transferring data with URL syntax
     - discord                             # Chat for Communities and Friends

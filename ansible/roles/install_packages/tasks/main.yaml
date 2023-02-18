@@ -1,5 +1,0 @@
----
-- name: Play needed tasks in order
-  include_tasks: "{{ item }}"
-  loop:
-    - install_packages.yaml

@@ -4,12 +4,13 @@
     pkg:
     - ansible                             # ansible - Configuration management, deployment, and task execution system
     - btop                                # Modern and colorful command line resource monitor that shows usage and stats
-    - htop                                # 
     - curl                                # command line tool for transferring data with URL syntax
+    - discord                             # Chat for Communities and Friends
     - flameshot                           # Powerful yet simple-to-use screenshot software
-    - fuse                                #
+    - fuse                                # Filesystem in Userspace
     - gimp                                # GNU Image Manipulation Program
     - git                                 # git - fast, scalable, distributed revision control system
+    - htop                                # interactive processes viewer
     - libreoffice                         # libreoffice - office productivity suite
     - locate                              # locate - maintain and query an index of a directory tree
     - neofetch                            # Shows Linux System Information with Distribution Logo

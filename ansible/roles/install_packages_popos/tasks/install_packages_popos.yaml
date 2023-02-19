@@ -6,7 +6,7 @@
     - curl                                # command line tool for transferring data with URL syntax
     - discord                             # Chat for Communities and Friends
     - flameshot                           # Powerful yet simple-to-use screenshot software
-    - fuse                                # Filesystem in Userspace
+    #- fuse                                # Filesystem in Userspace
     - gimp                                # GNU Image Manipulation Program
     - git                                 # git - fast, scalable, distributed revision control system
     - htop                                # interactive processes viewer

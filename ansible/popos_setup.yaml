@@ -19,7 +19,6 @@
       - update
       - install_packages_popos
       - install_cheat
-      - install_discord
       - install_joplin
       - install_configs
 

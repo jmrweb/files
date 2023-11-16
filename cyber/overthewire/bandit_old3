@@ -1,0 +1,377 @@
+bandit0	boJ9jbbUNNfktd78OOpsqOltutMc3MY1
+	cat readme
+
+bandit1	CV1DtqXWVFXTvM2F0k09SHz0YwRINYA9
+	cat ./-
+
+bandit2	UmHadQclWmgdLOKQ3YNgjWxGoRMb5luK
+	cat spaces\ in\ this\ filename
+	cat 'spaces in this filename'
+
+bandit3	pIwrPrtPN36QITSp3EQaw936yaFoFgAB
+	ls
+	cd inhere
+	ls -la
+	cat .hidden
+
+bandit4	koReBOKuIDDepwhWk7jZC0RTdopnAYKh
+	ls
+	cd inhere
+	file ./*
+	cat ./-file07
+
+	cat -- -file07
+
+bandit5 DXjZPULLxYr17uwoI01bNLQbtFemEgo7
+	find ! -executable -size 1033c
+	cat ./inhere/maybehere07/.file2
+
+bandit6 HKBPTKQnIay4Fw76bEy8PVxKEDQRKTzs
+	find / -user bandit7 -group bandit6 -size 33c 2> /dev/null
+
+bandit7 cvX2JJa4CFALtqS87jk27qwqGhBM9plV
+	cat data.txt | grep millionth
+
+bandit8 UsvVyFSfZZWbi6wgC7dAFyFuR6jQQUhR
+	sort data.txt | uniq -u
+
+bandit9 truKLdjsbJ5g7yyJ2X2R0o3a5HQJFuLk
+	strings data.txt  | grep ==
+
+bandit10 IFukwKGsFW8MOq3IRFqrxE1hxTNEbUPR 
+	base64 -d data.txt
+
+bandit11 5Te8Y4drgCRfCx8ugdwuEX8KFC6k2EUu
+	cat data.txt | tr [A-Za-z] [N-ZA-Mn-za-m]
+
+bandit12 8ZjyCRiBWFYkneahHwxCv3wb2a1ORpYL 
+	xxd -r data.txt data2.txt
+	
+	file ./*
+	cp data2.txt data2.gz	
+	gunzip data2.gz
+
+	file ./*
+	bunzip2 data2
+
+	file ./*
+	cp data2.out data4.gz
+	gunzip data4.gz
+
+	file ./*
+	tar -xvf data4
+
+	file ./*
+	tar -xvf data5.bin
+
+	file ./*
+	bunzip2 data6.bin
+
+	file ./*
+	tar -xvf data6.bin.out
+
+	file ./*
+	cp data8.bin data9.gz
+	gunzip data9.gz
+
+	file ./*
+	cat data9
+
+bandit13
+-----BEGIN RSA PRIVATE KEY-----
+MIIEpAIBAAKCAQEAxkkOE83W2cOT7IWhFc9aPaaQmQDdgzuXCv+ppZHa++buSkN+
+gg0tcr7Fw8NLGa5+Uzec2rEg0WmeevB13AIoYp0MZyETq46t+jk9puNwZwIt9XgB
+ZufGtZEwWbFWw/vVLNwOXBe4UWStGRWzgPpEeSv5Tb1VjLZIBdGphTIK22Amz6Zb
+ThMsiMnyJafEwJ/T8PQO3myS91vUHEuoOMAzoUID4kN0MEZ3+XahyK0HJVq68KsV
+ObefXG1vvA3GAJ29kxJaqvRfgYnqZryWN7w3CHjNU4c/2Jkp+n8L0SnxaNA+WYA7
+jiPyTF0is8uzMlYQ4l1Lzh/8/MpvhCQF8r22dwIDAQABAoIBAQC6dWBjhyEOzjeA
+J3j/RWmap9M5zfJ/wb2bfidNpwbB8rsJ4sZIDZQ7XuIh4LfygoAQSS+bBw3RXvzE
+pvJt3SmU8hIDuLsCjL1VnBY5pY7Bju8g8aR/3FyjyNAqx/TLfzlLYfOu7i9Jet67
+xAh0tONG/u8FB5I3LAI2Vp6OviwvdWeC4nOxCthldpuPKNLA8rmMMVRTKQ+7T2VS
+nXmwYckKUcUgzoVSpiNZaS0zUDypdpy2+tRH3MQa5kqN1YKjvF8RC47woOYCktsD
+o3FFpGNFec9Taa3Msy+DfQQhHKZFKIL3bJDONtmrVvtYK40/yeU4aZ/HA2DQzwhe
+ol1AfiEhAoGBAOnVjosBkm7sblK+n4IEwPxs8sOmhPnTDUy5WGrpSCrXOmsVIBUf
+laL3ZGLx3xCIwtCnEucB9DvN2HZkupc/h6hTKUYLqXuyLD8njTrbRhLgbC9QrKrS
+M1F2fSTxVqPtZDlDMwjNR04xHA/fKh8bXXyTMqOHNJTHHNhbh3McdURjAoGBANkU
+1hqfnw7+aXncJ9bjysr1ZWbqOE5Nd8AFgfwaKuGTTVX2NsUQnCMWdOp+wFak40JH
+PKWkJNdBG+ex0H9JNQsTK3X5PBMAS8AfX0GrKeuwKWA6erytVTqjOfLYcdp5+z9s
+8DtVCxDuVsM+i4X8UqIGOlvGbtKEVokHPFXP1q/dAoGAcHg5YX7WEehCgCYTzpO+
+xysX8ScM2qS6xuZ3MqUWAxUWkh7NGZvhe0sGy9iOdANzwKw7mUUFViaCMR/t54W1
+GC83sOs3D7n5Mj8x3NdO8xFit7dT9a245TvaoYQ7KgmqpSg/ScKCw4c3eiLava+J
+3btnJeSIU+8ZXq9XjPRpKwUCgYA7z6LiOQKxNeXH3qHXcnHok855maUj5fJNpPbY
+iDkyZ8ySF8GlcFsky8Yw6fWCqfG3zDrohJ5l9JmEsBh7SadkwsZhvecQcS9t4vby
+9/8X4jS0P8ibfcKS4nBP+dT81kkkg5Z5MohXBORA7VWx+ACohcDEkprsQ+w32xeD
+qT1EvQKBgQDKm8ws2ByvSUVs9GjTilCajFqLJ0eVYzRPaY6f++Gv/UVfAPV4c+S0
+kAWpXbv5tbkkzbS0eaLPTKgLzavXtQoTtKwrjpolHKIHUz6Wu+n4abfAIRFubOdN
+/+aLoRQ0yBDRbdXMsZN/jvY44eM+xRLdRVyMmdPtP8belRi2E2aEzA==
+-----END RSA PRIVATE KEY----- 
+	
+	ls
+	cat bandit14.private
+	(copy private key to clipboard)
+	(on local machine in ~/.ssh/) vi bandit14.private (paste private key)
+	(on local machine) ssh -i ./bandit14.private bandit14@bandit.labs.overthewire.org -p2220
+
+bandit14 BfMYroe26WYalil77FoDi9qh59eK5xNr
+	cat /etc/bandit_pass/bandit14
+	(copy bandit14 password: 4wcYUJFw0k0XLShlDzztnTBHiqxU3b3e)
+	nc localhost 30000
+	4wcYUJFw0k0XLShlDzztnTBHiqxU3b3e
+
+bandit15 cluFn7wTiGryunymYOu4RcffSxQluehd	
+	openssl s_client -connect localhost:30001
+	BfMYroe26WYalil77FoDi9qh59eK5xNr
+
+bandit16 
+-----BEGIN RSA PRIVATE KEY-----
+MIIEogIBAAKCAQEAvmOkuifmMg6HL2YPIOjon6iWfbp7c3jx34YkYWqUH57SUdyJ
+imZzeyGC0gtZPGujUSxiJSWI/oTqexh+cAMTSMlOJf7+BrJObArnxd9Y7YT2bRPQ
+Ja6Lzb558YW3FZl87ORiO+rW4LCDCNd2lUvLE/GL2GWyuKN0K5iCd5TbtJzEkQTu
+DSt2mcNn4rhAL+JFr56o4T6z8WWAW18BR6yGrMq7Q/kALHYW3OekePQAzL0VUYbW
+JGTi65CxbCnzc/w4+mqQyvmzpWtMAzJTzAzQxNbkR2MBGySxDLrjg0LWN6sK7wNX
+x0YVztz/zbIkPjfkU1jHS+9EbVNj+D1XFOJuaQIDAQABAoIBABagpxpM1aoLWfvD
+KHcj10nqcoBc4oE11aFYQwik7xfW+24pRNuDE6SFthOar69jp5RlLwD1NhPx3iBl
+J9nOM8OJ0VToum43UOS8YxF8WwhXriYGnc1sskbwpXOUDc9uX4+UESzH22P29ovd
+d8WErY0gPxun8pbJLmxkAtWNhpMvfe0050vk9TL5wqbu9AlbssgTcCXkMQnPw9nC
+YNN6DDP2lbcBrvgT9YCNL6C+ZKufD52yOQ9qOkwFTEQpjtF4uNtJom+asvlpmS8A
+vLY9r60wYSvmZhNqBUrj7lyCtXMIu1kkd4w7F77k+DjHoAXyxcUp1DGL51sOmama
++TOWWgECgYEA8JtPxP0GRJ+IQkX262jM3dEIkza8ky5moIwUqYdsx0NxHgRRhORT
+8c8hAuRBb2G82so8vUHk/fur85OEfc9TncnCY2crpoqsghifKLxrLgtT+qDpfZnx
+SatLdt8GfQ85yA7hnWWJ2MxF3NaeSDm75Lsm+tBbAiyc9P2jGRNtMSkCgYEAypHd
+HCctNi/FwjulhttFx/rHYKhLidZDFYeiE/v45bN4yFm8x7R/b0iE7KaszX+Exdvt
+SghaTdcG0Knyw1bpJVyusavPzpaJMjdJ6tcFhVAbAjm7enCIvGCSx+X3l5SiWg0A
+R57hJglezIiVjv3aGwHwvlZvtszK6zV6oXFAu0ECgYAbjo46T4hyP5tJi93V5HDi
+Ttiek7xRVxUl+iU7rWkGAXFpMLFteQEsRr7PJ/lemmEY5eTDAFMLy9FL2m9oQWCg
+R8VdwSk8r9FGLS+9aKcV5PI/WEKlwgXinB3OhYimtiG2Cg5JCqIZFHxD6MjEGOiu
+L8ktHMPvodBwNsSBULpG0QKBgBAplTfC1HOnWiMGOU3KPwYWt0O6CdTkmJOmL8Ni
+blh9elyZ9FsGxsgtRBXRsqXuz7wtsQAgLHxbdLq/ZJQ7YfzOKU4ZxEnabvXnvWkU
+YOdjHdSOoKvDQNWu6ucyLRAWFuISeXw9a/9p7ftpxm0TSgyvmfLF2MIAEwyzRqaM
+77pBAoGAMmjmIJdjp+Ez8duyn3ieo36yrttF5NSsJLAbxFpdlc1gvtGCWW+9Cq0b
+dxviW8+TFVEBl1O4f7HVm6EpTscdDxU+bCXWkfjuRb7Dy9GOtt9JPsX8MBTakzh3
+vBgsyi/sN3RqRBcGU40fOoZyfAMT8s1m/uYv52O6IgeuZ/ujbjY=
+-----END RSA PRIVATE KEY-----
+
+	nmap -p 31000-32000 localhost
+	nmap -sV -SC -p 31790 localhost
+	openssl s_client -connect localhost:31790
+	cluFn7wTiGryunymYOu4RcffSxQluehd
+	
+bandit17 kfBf3eYk5BPBRzwjqutbbfE887SVc5Yd
+	diff -q passwords.new passwords.old
+	
+bandit18 IueksS7Ubh8G3DCwVzrTd8rAVOwq3M5x
+	ssh -t bandit18@bandit.labs.overthewire.org -p 2220 /bin/sh
+	kfBf3eYk5BPBRzwjqutbbfE887SVc5Yd
+	cat readme
+	
+bandit19 GbKksEFF4yrVs6il55v6gwY5aVje5f0j
+	./bandit20-do cat /etc/bandit_pass/bandit20
+	
+bandit20 gE269g2h3mw3pwgrj0Ha9Uoqen1c9DGr
+	 tmux
+	 (ctrl b + c to open a second terminal in tmux)
+	 (terminal1):  nc -l -p 4444
+	 (terminal 0): ./suconnect 4444
+	 (terminal1):  GbKksEFF4yrVs6il55v6gwY5aVje5f0j
+	 
+bandit21 Yk7owGAcWjwMVRwrTesJEwB7WVOiILLI
+	ls /etc/cron.d
+	cat /etc/cron.d/cronjob_bandit22
+	cat /usr/bin/cronjob_bandit22.sh
+	cat /tmp/t7O6lds9S0RqQh9aMcz6ShpAoZKF7fgv
+	
+bandit22 jc1udXuA1tiHqjIsL8yaapX5XIAI6i0n
+	ls /etc/cron.d
+	cat /etc/cron.d/cronjob_bandit23
+	cat /usr/bin/cronjob_bandit23.sh
+	echo I am user bandit23 | md5sum | cut -d ' ' -f 1
+	cat /tmp/8ca319486bfbbc3663ea0fbe81326349
+	
+bandit23 UoMYTrfrBFHyQXmg6gzctqAwOmw1IohZ
+	ls /etc/cron.d
+	cat /etc/cron.d/cronjob_bandit24
+	cat /usr/bin/cronjob_bandit24.sh
+	cd /var/spool/bandit24/
+	vi bandit23
+	(script)
+		#!/bin/bash                                  
+  		chmod 644 /tmp/bandit24                      
+		cat /etc/bandit_pass/bandit24 > /tmp/bandit24
+	(/script)
+	cat /tmp/bandit24
+	
+bandit24 uNG9O58gUE7snukf3bvZ0rxhtnjzSGzG
+	cd /tmp/
+	vi pinbrute.sh
+	(script)
+		#!/binbash                                                                                                                        
+		pass="UoMYTrfrBFHyQXmg6gzctqAwOmw1IohZ"
+  
+		for i in $(seq -f "%04g" 1 9999)
+		do
+			bruteinput=$pass" "$i
+			echo $bruteinput >> brutein.txt
+		done
+	(/script)
+	cat brutein.txt | netcat localhost 30002
+	
+bandit25 5czgV9L3Xx8JPOyRbXh6lQbmIOWvPT6Z
+	cat /etc/passwd | grep bandit26 	#get bandit26 shell path
+	#resize terminal window small enough that to for more to prompt you to press a key
+        #press "v" at more prompt to edit text.txt in vim
+	#in vim enter commands: "
+		:set shell=/bin/bash		#set shell variable
+		:shell				#start shell
+
+			-or-
+
+	#in vim enter command ":e /etc/bandit_pass/bandit26" to edit the password file for bandit26
+	#copy password from /etc/bandit_pass/bandit26 
+
+bandit26 3ba3118a22e93127a4ed485be72ef5ea
+	# can use "~/bandit27-do to run files as user bandit27
+		./bandit27-do whoami
+	
+	# enumerate files owned by bandit 27
+		find / -user bandit27 2> /dev/null
+	
+	# /etc/bandit_pass/bandit27 is owned by bandit27
+	# print bandit27 password 
+		./bandit27-do cat /etc/bandit_pass/bandit27
+		
+bandit27 0ef186ac70e04ea33b4c1853d2526fa2
+	# need clone /home/bandit27-git/repo
+	# do not have persmissions to write to home directory
+	# switch to /tmp
+	# attempt to clone but /tmp/repo already exists
+	# change folder name for cloned project to test1
+		git clone ssh://bandit27-git@localhost/home/bandit27-git/repo --depth=1 -b master test1
+	
+	# change directory to test1 and list contents
+		cd test1
+		ls -la
+		
+	# README in /tmp/test1 contains pw to next level
+	
+bandit28 bbc96594b4e001778eee9975372716b2
+	# need to clone /home/bandit28-git/repo
+	# do not have persmissions to write to home directory
+	# switch to /tmp
+	# attempt to clone but /tmp/repo already exists
+	# create bandit28_temp folder
+		mkdir bandit28_temp
+		
+	# change directory to bandit28_temp
+		cd bandit28_temp
+			
+	# clone repository
+		git clone ssh://bandit28-git@localhost/home/bandit28-git/repo
+	
+	# change directory to /repo
+		cd repo
+	
+	#check git log
+		git log
+		
+	#log shows change to fix infor leak
+	
+	#check full diff of each commit
+		git log -p
+		
+	#full diff shows pw for next level
+	
+bandit29 5b90576bedb2cc04c86a9e924ce42faf
+	# need to clone /home/bandit29-git/repo
+	# do not have persmissions to write to home directory
+	# switch to /tmp
+	# attempt to clone but /tmp/repo already exists
+	# create bandit29_temp folder
+		mkdir bandit29_temp
+		
+	# change directory to bandit29_temp
+		cd bandit29_temp
+			
+	# clone repository
+		git clone ssh://bandit29-git@localhost/home/bandit29-git/repo
+	
+	# change directory to /repo
+		cd repo
+	
+	#check git log
+		git log
+		
+	#check full diff of each commit
+		git log -p
+
+	#show all commits in the history of branches, tags and other refs and show full diff of each commit
+		git log --all -p
+		
+	#last command shows pw for next level
+	
+bandit30 47e603bb428404d265f59c42920d81e5
+	# need to clone /home/bandit30-git/repo
+	# do not have persmissions to write to home directory
+	# switch to /tmp
+	# attempt to clone but /tmp/repo already exists
+	# create bandit30_temp folder
+		mkdir bandit30_temp
+		
+	# change directory to bandit30_temp
+		cd bandit30_temp
+			
+	# clone repository
+		git clone ssh://bandit30-git@localhost/home/bandit30-git/repo
+	
+	# change directory to /repo
+		cd repo
+		
+	# nothing except inital commit in log
+		git log --all -p
+		
+	# list git tags
+		git tag -l
+		
+
+	# There is a tagged named 'secret'
+	# List tags with references	
+		git show-ref --tags -d
+
+	# View contents of secret tag
+		git cat-file -p f17132340e8ee6c159e0a4a6bc6f80e1da3b1aea
+		
+bandit31 56a9bf19c63d650ce78e6ec0354ee45e
+	# need to clone /home/bandit31-git/repo
+	# do not have persmissions to write to home directory
+	# switch to /tmp
+	# attempt to clone but /tmp/repo already exists
+	# create bandit31temp folder
+		mkdir bandit30temp
+		
+	# change directory to bandit31temp
+		cd bandit30temp
+			
+	# clone repository
+		git clone ssh://bandit31-git@localhost/home/bandit31-git/repo
+	
+	# change directory to /repo
+		cd repo
+		
+	# check README.md
+		cat README.md
+	
+	# README.md hints that:
+		This time your task is to push a file to the remote repository.
+
+			Details:
+			    File name: key.txt
+			    Content: 'May I come in?'
+			    Branch: master
+			    
+	# create and push file to remote repository
+		echo "May I come in?" key.txt
+		git add key.txt -f
+		git commit -m "Attempting to push key.txt"
+		git push origin master
+
+
+	

